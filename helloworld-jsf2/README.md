@@ -1,1 +1,1 @@
-# HelloWorld-JSF
+# helloworld-jsf
