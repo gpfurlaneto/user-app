@@ -1,0 +1,192 @@
+<html ng-app="listaUsuarios">
+<head>
+<meta charset="UTF-8">
+<title>User-App-AngularJS</title>
+<link rel="stylesheet" type="text/css"
+	href="css/lib/bootstrap-3.3.6/css/bootstrap.css">
+<link rel="stylesheet" type="text/css"
+	href="css/lib/bootstrap-3.3.6/css/bootstrap.min.css" />
+<link rel="stylesheet" type="text/css" href="css/style.css">
+<script src="js/lib/jquery-2.2.0/jquery.min.js"></script>
+<script src="css/lib/bootstrap-3.3.6/js/bootstrap.js"></script>
+<script src="js/lib/angular-1.5.3/angular.js"></script>
+<script src="js/lib/angular-1.5.3/angular-route.js"></script>
+<link rel="stylesheet" type="text/css"
+	href="js/lib/datepicker/datepicker.css" />
+<script src="js/lib/datepicker/bootstrap-datepicker.js"></script>
+<script src="js/lib/datepicker/bootstrap-datepicker.pt-BR.js"></script>
+<script src="js/app.js"></script>
+
+<!--	<script src="js/controllers/homeController.js"></script>-->
+
+<!--	<script src="js/config.js"></script>-->
+<script>
+	angular.module("listaUsuarios", []);
+	angular.module("listaUsuarios").controller("UsuariosCtrl",
+			function($scope) {
+
+				var listarUsuarios = function(){
+					$scope.usuarios = [ {
+						id : 1,
+						nome : "João Silva",
+						email: "joao@teste.com",
+						login: "joao",					
+						dataNascimento : new Date(),
+						senha : "123"
+					}, {
+						id : 2,
+						nome : "Ana",
+						email: "ana@teste.com",
+						login: "ana",
+						dataNascimento : new Date(),
+						senha : "123"
+					}, {
+						id : 3,
+						nome : "Maria",
+						email: "maria@teste.com",
+						login: "maria",
+						dataNascimento : new Date(),
+						senha : "123"
+					} ];
+				};
+				
+				$scope.salvarUsuario = function (usuario) {
+					$scope.usuarios.push(angular.copy(usuario));
+					delete $scope.usuario;
+					$scope.form_usuario.$setPristine();
+				},
+				
+				$scope.removerUsuario = function (index) {
+					$scope.usuarios.splice(index)
+				},
+				
+				$scope.editarUsuario = function (usuario) {
+					console.log(usuario);
+					$scope.usuario = usuario;
+				};
+				
+				listarUsuarios();
+			});
+</script>
+</head>
+<body ng-controller="UsuariosCtrl">
+	<!--		<div style="text-align:center" ng-include="'pages/menu.html'" ng-show='2==1'></div>-->
+	<div class="panel panel-primary base_center">
+		<div class="panel-heading">Lista de usuários</div>
+		<div class="panel-body">
+
+			<table class="table">
+				<tr>
+					<th>Nome</th>
+					<th>Email</th>
+					<th>Login</th>
+					<th>Data Nascimento</th>
+					<th>Ações</th>
+				</tr>
+				<tr ng-repeat="usuario in usuarios">
+					<td>{{usuario.nome}}</td>
+					<td>{{usuario.email}}</td>
+					<td>{{usuario.login}}</td>
+					<td>{{usuario.dataNascimento | date:'dd/MM/yyyy'}}</td>
+					<td>
+						<a href="#" title="Editar" class="confirm-edit mini red-stripe" role="button" ng-click="editarUsuario(usuario)">
+							<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+						</a> 
+						<a title="Deletar" class="confirm-remove mini red-stripe" role="button" ng-click="removerUsuario($index)">
+							<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+					</a></td>
+				</tr>
+			</table>
+		</div>
+	</div>
+	<div class="panel panel-primary base_center">
+		<div class="panel-heading">Cadastrar usuário</div>
+		<div class="panel-body">
+			<form class="form-group" name="formUsuario" style="top: -9px; left: 292px;">
+				<!-- has-error  -->
+				<div class="form-group fields_form-2" ng-class="{true: 'has-error'}[formUsuario.inputNome.$error.required && formUsuario.inputNome.$dirty]">
+				  	<label for="inputNome" class="control-label">Nome completo</label>
+					<input id="inputNome" name="inputNome" type="text" class="form-control" ng-model="usuario.nome" 
+						ng-required="true" aria-describedby="nome" maxlength="100">
+						<span id="errorNomeRequerido" class="help-block" ng-show="formUsuario.inputNome.$error.required && formUsuario.inputNome.$dirty">
+							O campo Nome é de preenchimento obrigatório. 
+						</span>
+				</div>
+				<div class="form-group fields_form-2" ng-class="{true: 'has-error'}[formUsuario.inputEmail.$error.required && formUsuario.inputEmail.$dirty]">
+				  	<label for="inputEmail" class="control-label">Email</label>
+					<input id="inputEmail" name="inputEmail" type="text" aria-describedby="email"
+						ng-required="true" class="form-control input-md" ng-model="usuario.email">
+					<span id="errorEmailRequerido" class="help-block" ng-show="formUsuario.inputEmail.$error.required && formUsuario.inputEmail.$dirty">
+						O campo Email é de preenchimento obrigatório. 
+					</span>
+				</div>
+				<div class="form-group fields_form-1" ng-class="{true: 'has-error'}[formUsuario.inputLogin.$error.required && formUsuario.inputLogin.$dirty]">
+				<label for="inputLogin" class="control-label">Login
+					do usuário</label>
+					<input id="inputLogin" name="inputLogin" type="text" aria-describedby="login"
+						ng-required="true" class="form-control input-md" ng-model="usuario.login">
+					<span id="errorLoginRequerido" class="help-block" ng-show="formUsuario.inputLogin.$error.required && formUsuario.inputLogin.$dirty">
+						O campo Login é de preenchimento obrigatório. 
+					</span>
+				</div>
+				<div id="div_data" class="form-group fields_form-1 " ng-class="{true: 'has-error'}[formUsuario.inputDtNascimento.$error.required && formUsuario.inputDtNascimento.$dirty]">
+					<label for="inputDtNascimento" class="control-label">Data
+					de nascimento</label>
+					<div class='input-group date' id='datetimepicker1'>
+						<input type="text" name="inputDtNascimento" ng-model="usuario.dataNascimento" value=""
+							ng-required="true" id="inputDtNascimento" class="form-control" aria-describedby="dataNascimento">
+							<span class="input-group-addon">
+							<span class="glyphicon glyphicon-calendar"></span>
+						</span>
+					</div>
+					<span id="errorDataNascimentoRequerido" class="help-block" ng-show="formUsuario.inputDtNascimento.$error.required && formUsuario.inputDtNascimento.$dirty">
+						O campo data de Nascimento é de preenchimento obrigatório. 
+					</span>
+					<script type="text/javascript">
+						
+						$(document).ready(function() {
+							$('#inputDtNascimento').datepicker({
+								format : "dd/MM/yyyy",
+								autoclose : true,
+								todayBtn : true,
+								pickerPosition : "bottom-left",
+								language : "pt"
+							});
+
+						});
+						
+						$(window).load(function() {
+							$('#div_data').removeClass('has-error');	
+							$('#errorDataNascimentoRequerido').addClass("ng-hide");
+						});
+					</script>
+					
+				</div>
+				<div class="form-group fields_form-1"  ng-class="{true: 'has-error'}[formUsuario.inputSenha.$error.required && formUsuario.inputSenha.$dirty]">
+					<label for="senha" class="control-label">Senha:</label>
+					<input id="inputSenha" name="inputSenha" type="password" class="form-control" ng-model="usuario.senha" aria-describedby="senha" ng-required="true" >
+					<span id="errorSenhaRequerido" class="help-block" ng-show="formUsuario.inputSenha.$error.required && formUsuario.inputSenha.$dirty">
+						O campo senha é de preenchimento obrigatório. 
+					</span>	
+				</div>
+				</br>
+						<button type="submit" class="btn btn-primary" ng-click="salvarUsuario(usuario)" ng-disabled="formUsuario.$invalid">Salvar</button>
+						<button type="submit" class="btn">Cancelar</button>
+ 				<!-- <nav>
+ 				
+					<ul class="pager" style="margin: 0; padding: 0">
+						<li>
+						</li>
+						<li>
+						</li>
+					</ul>
+				</nav> -->
+			</form>
+		</div>
+	</div>
+	<script type="text/javascript">
+	
+	
+	</script>
+</body>
+</html>

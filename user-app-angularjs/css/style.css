@@ -1,0 +1,28 @@
+.base_center{
+	margin: 0 auto;
+	max-width: 800px;
+}
+
+.center_login{
+	margin: 10% auto;
+}
+
+.width_100_percent{
+	width: 100%;
+}
+
+.fields_form-1{
+	max-width: 300px;
+}
+
+.fields_form-2{
+	max-width: 400px;
+}
+
+input{
+	margin-bottom: 5;
+}
+
+#datetimepicker1{
+	margin-bottom: 5;
+}
