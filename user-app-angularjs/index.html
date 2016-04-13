@@ -23,42 +23,26 @@
 <script>
 	angular.module("listaUsuarios", []);
 	angular.module("listaUsuarios").controller("UsuariosCtrl",
-			function($scope) {
+			function($scope, $http) {
 
 				var listarUsuarios = function(){
-					$scope.usuarios = [ {
-						id : 1,
-						nome : "João Silva",
-						email: "joao@teste.com",
-						login: "joao",					
-						dataNascimento : new Date(),
-						senha : "123"
-					}, {
-						id : 2,
-						nome : "Ana",
-						email: "ana@teste.com",
-						login: "ana",
-						dataNascimento : new Date(),
-						senha : "123"
-					}, {
-						id : 3,
-						nome : "Maria",
-						email: "maria@teste.com",
-						login: "maria",
-						dataNascimento : new Date(),
-						senha : "123"
-					} ];
+					$http.get("http://localhost:8080/user-core-rest/user").success(function (data) {
+						$scope.usuarios = data;
+					}).error(function (data, status) {
+						$scope.message = "Aconteceu um problema: " + data;
+					}); 
+					
 				};
 				
 				$scope.salvarUsuario = function (usuario) {
 					$scope.usuarios.push(angular.copy(usuario));
 					delete $scope.usuario;
-					$scope.form_usuario.$setPristine();
-				},
+					$scope.formUsuario.$setPristine();
+				};
 				
 				$scope.removerUsuario = function (index) {
 					$scope.usuarios.splice(index)
-				},
+				};
 				
 				$scope.editarUsuario = function (usuario) {
 					console.log(usuario);
