@@ -42,7 +42,6 @@
 						};
 
 						$scope.removerUsuario = function() {
-							console.log($scope.usuarioExcluir);
 							usuariosAPI.removerUsuario($scope.usuarioExcluir.id).success(function(data) {
 								console.log($scope.usuarioExcluir);
 								$scope.usuarios.splice($scope.usuarios.indexOf($scope.usuarioExcluir), 1);
@@ -64,6 +63,8 @@
 									dataNascimento: user.dataNascimento, 
 									senha: user.senha
 								};
+							console.log($scope.usuario);
+							console.log(user);
 						};
 
 						$scope.selecionarUsuarioExcluir = function(usuarioExcluir){
