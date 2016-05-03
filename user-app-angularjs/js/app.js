@@ -1,1 +1,1 @@
-var listaUsuarios = angular.module("listaUsuarios", ["ngRoute"]);
+angular.module("listaUsuarios", ["ngRoute"]);

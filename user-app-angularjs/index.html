@@ -16,96 +16,15 @@
 <script src="js/lib/datepicker/bootstrap-datepicker.js"></script>
 <script src="js/lib/datepicker/bootstrap-datepicker.pt-BR.js"></script>
 <script src="js/app.js"></script>
-
-<!--	<script src="js/controllers/homeController.js"></script>-->
-
-<!--	<script src="js/config.js"></script>-->
-<script>
-	angular.module("listaUsuarios", []);
-	angular
-			.module("listaUsuarios")
-			.controller(
-					"UsuariosCtrl",
-					function($scope, $http) {
-
-						var listarUsuarios = function() {
-							$http
-									.get(
-											"http://localhost:8080/user-core-rest/user")
-									.success(function(data) {
-										$scope.usuarios = data;
-									})
-									.error(
-											function(data, status) {
-												$scope.message = "Aconteceu um problema: "
-														+ data;
-											});
-
-						};
-
-						$scope.salvarUsuario = function(usuario) {
-							$http.post("http://localhost:8080/user-core-rest/user",	usuario).success(function(data) {
-										
-										if (Array.isArray(data)) {
-											
-											$scope.errorsValidation = new Map();
-												data.forEach(function(error){
-												$scope.errorsValidation.set(error.path, error.message);
-											});
-										} else {
-											delete $scope.usuario;
-											delete $scope.errorsValidation;
-											$scope.formUsuario.$setPristine();
-											listarUsuarios();
-										}
-										$scope.message = "Aconteceu um problema: ";
-									})
-									.error(
-											function(data, status) {
-												$scope.message = "Aconteceu um problema: "
-														+ data;
-											});
-
-						};
-
-						$scope.removerUsuario = function() {
-							$http.delete("http://localhost:8080/user-core-rest/user/" + $scope.cidadaoExcluir.id).success(function(data) {
-								console.log($scope.cidadaoExcluir);
-								$scope.usuarios.splice($scope.usuarios.indexOf($scope.cidadaoExcluir), 1);
-								delete $scope.cidadaoExcluir;
-							})
-							.error(
-									function(data, status) {
-										$scope.message = "Aconteceu um problema: "
-												+ data;
-									});
-						};
-
-						$scope.editarUsuario = function(user) {
-							$scope.usuario = {
-									id: user.id, 
-									nome: user.nome, 
-									email: user.email, 
-									login: user.login, 
-									dataNascimento: user.dataNascimento, 
-									senha: user.senha
-								};
-						};
-						$scope.selecionarIdCidadaoExcluir= function(cidadaoExcluir){
-							$scope.cidadaoExcluir = cidadaoExcluir;
-							console.log($scope.cidadaoExcluir);
-						};
-
-						listarUsuarios();
-					});
-</script>
+<script src="js/services/UsuariosAPIService.js"></script>
+<script src="js/controllers/UsuariosCtrl.js"></script>
+<script src="js/value/configValue.js"></script>
 </head>
 <body ng-controller="UsuariosCtrl">
 	<!--		<div style="text-align:center" ng-include="'pages/menu.html'" ng-show='2==1'></div>-->
 	<div class="panel panel-primary base_center">
 		<div class="panel-heading">Lista de usuários</div>
 		<div class="panel-body">
-
 			<table class="table">
 				<tr>
 					<th>Nome</th>
@@ -123,10 +42,11 @@
 						<a href="#" title="Editar" class="confirm-edit mini red-stripe" role="button" ng-click="editarUsuario(usuario)">
 							<span class="glyphicon glyphicon-edit" aria-hidden="true"/>
 						</a>
-						<a title="Deletar" class="confirm-remove mini red-stripe" role="button" data-toggle="modal" data-target="#modal-excluir-usuario"
-							ng-click="selecionarIdCidadaoExcluir(usuario)">
+						<a title="Deletar" class="confirm-remove mini red-stripe" role="button" role="button" data-toggle="modal" data-target="#modal-excluir-usuario"
+						ng-click="selecionarUsuarioExcluir(usuario)">
 							<span class="glyphicon glyphicon-remove" aria-hidden="true"/>
 						</a>
+						
 					</td>
 				</tr>
 			</table>
