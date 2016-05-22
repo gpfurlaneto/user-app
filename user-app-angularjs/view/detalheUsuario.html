@@ -1,0 +1,111 @@
+<div style="text-align:center" ng-include="'view/menu.html'"/>
+
+<div class="panel panel-default base_center">
+	<div class="panel-heading">Cadastrar usuário</div>
+	{{usuario}}
+	<div class="panel-body">
+		<form class="form-group" name="formUsuario" id="formUsuario"
+			style="top: -9px; left: 292px;">
+			<div class="form-group fields_form-2"
+				ng-class="{true: 'has-error'}[formUsuario.inputNome.$error.required && formUsuario.inputNome.$dirty || errorsValidation.has('nome')]">
+				<label for="inputNome" class="control-label">Nome completo</label>
+				<input id="inputNome" name="inputNome" type="text" maxlength="150"
+					class="form-control" ng-model="usuario.nome" ng-required="true"
+					aria-describedby="nome" maxlength="100">
+					<span id="errorNomeRequerido" class="help-block"
+						ng-show="formUsuario.inputNome.$error.required && formUsuario.inputNome.$dirty || errorsValidation.has('nome')">
+						O campo Nome <span style='text-transform: lowercase;'>
+							{{errorsValidation.has('nome') ? errorsValidation.get('nome') : ' não pode estar vazio'}}.</span>
+					</span>
+			</div>
+			<div class="form-group fields_form-2"
+				ng-class="{true: 'has-error'}[formUsuario.inputEmail.$error.required && formUsuario.inputEmail.$dirty || errorsValidation.has('email')]">
+				<label for="inputEmail" class="control-label">Email</label>
+					<input maxlength="100"
+					id="inputEmail" name="inputEmail" type="text"
+					aria-describedby="email" ng-required="true"
+					class="form-control input-md" ng-model="usuario.email"> <span
+					id="errorEmailRequerido" class="help-block"
+					ng-show="formUsuario.inputEmail.$error.required && formUsuario.inputEmail.$dirty || errorsValidation.has('email')">
+					O campo Email 
+						 <span style='text-transform: lowercase;'>
+							{{errorsValidation.has('email') ? errorsValidation.get('email') : ' não pode estar vazio'}}.</span>
+					</span>
+			</div>
+			<div class="form-group fields_form-1"
+				ng-class="{true: 'has-error'}[formUsuario.inputLogin.$error.required && formUsuario.inputLogin.$dirty || errorsValidation.has('login')]">
+				<label for="inputLogin" class="control-label">Login do
+					usuário</label> <input id="inputLogin" name="inputLogin" type="text" maxlength="20"
+					aria-describedby="login" ng-required="true"
+					class="form-control input-md" ng-model="usuario.login"> <span
+					id="errorLoginRequerido" class="help-block"
+					ng-show="formUsuario.inputLogin.$error.required && formUsuario.inputLogin.$dirty || errorsValidation.has('login')">
+					O campo Login
+						 <span style='text-transform: lowercase;'>
+							{{errorsValidation.has('login') ? errorsValidation.get('login') : ' não pode estar vazio'}}.</span>
+					</span>
+			</div>
+			<div id="div_data" class="form-group fields_form-1 "
+				ng-class="{true: 'has-error'}[formUsuario.inputDtNascimento.$error.required && formUsuario.inputDtNascimento.$dirty || errorsValidation.has('dataNascimento')]">
+				<label for="inputDtNascimento" class="control-label">Data
+					de nascimento</label>
+				<div id="datepicker" class="input-group date">
+					<input id="inputDtNascimento" name="inputDtNascimento"
+						aria-describedby="errorDataNascimentoRequerido"
+						ng-required="true" class="form-control input-md"
+						ng-model="usuario.dataNascimento" type="text" readonly /> <span
+						class="input-group-addon"><i
+						class="glyphicon glyphicon-calendar"></i></span>
+				</div>
+				<span id="errorDataNascimentoRequerido" class="help-block"
+					ng-show="formUsuario.inputDtNascimento.$error.required && formUsuario.inputDtNascimento.$dirty || errorsValidation.has('dataNascimento')">
+					O campo data de Nascimento
+					 <span style='text-transform: lowercase;'>
+							{{errorsValidation.has('dataNascimento') ? errorsValidation.get('dataNascimento') : ' não pode estar vazio'}}.</span>
+				</span>
+				<script type="text/javascript">
+					$(function() {
+						$("#datepicker").datepicker({
+							autoclose : true,
+							todayHighlight : true,
+							format : 'dd-mm-yyyy',
+							language : 'pt-BR',
+						});
+					});
+				</script>
+			</div>
+			<div class="form-group fields_form-1"
+				ng-class="{true: 'has-error'}[formUsuario.inputSenha.$error.required && formUsuario.inputSenha.$dirty || errorsValidation.has('senha')]">
+				<label for="senha" class="control-label">Senha:</label> <input maxlength="10"
+					id="inputSenha" name="inputSenha" type="password"
+					class="form-control" ng-model="usuario.senha"
+					aria-describedby="senha" ng-required="true"> <span
+					id="errorSenhaRequerido" class="help-block"
+					ng-show="formUsuario.inputSenha.$error.required && formUsuario.inputSenha.$dirty || errorsValidation.has('senha')">
+					O campo senha
+						<span style='text-transform: lowercase;'>
+							{{errorsValidation.has('senha') ? errorsValidation.get('senha') : ' não pode estar vazio'}}.</span>
+					</span>
+			</div>
+			<button type="submit" class="btn btn-primary" ng-click="salvarUsuario(usuario)" ng-disabled="formUsuario.$invalid">Salvar</button>
+			<button id="testeCancel" type="submit" class="btn" data-toggle="modal" data-target="#modal-perder-info" ng-disabled="!formUsuario.$dirty" >Cancelar</button>
+		</form>
+	</div>
+</div>
+<div class="modal fade" id="modal-perder-info" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Atenção</h4>
+      </div>
+      <div class="modal-body">
+        <p>Perder informações?</p>        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="descartarInformacoesCadastro()">Excluir</button>
+        <button id="cancelModal" type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
