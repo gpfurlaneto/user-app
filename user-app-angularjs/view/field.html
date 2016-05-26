@@ -1,0 +1,7 @@
+<div class="form-group {{sizeClass}}" ng-class="{true: 'has-error'}[showError]">
+	<label class="control-label">{{label}}</label>
+	<div ng-transclude></div>
+		<span id="erroloco" class="help-block" ng-class="{false: 'hide'}[showError]" style="text-transform: lowercase;">
+			 O campo {{label}} {{error}}.
+		</span>
+</div>

@@ -2,24 +2,23 @@ angular.module("listaUsuarios").controller("DetalheUsuarioCtrl", function($scope
 
 	$scope.usuario = usuario;
 	$scope.usuarioReferencia = JSON.parse(JSON.stringify(usuario));
+	$scope.titulo = $scope.usuarioReferencia == null ? "Cadastrar" : "Editar";
+	$scope.tituloCancelar = $scope.usuarioReferencia == null ? "o cadastro?" : "a edição?";
 	
 	$scope.salvarUsuario = function(usuario) {
 		usuariosAPI.salvarUsuario(usuario).success(function(data) {
 			
 			if (Array.isArray(data)) {
-				
 				$scope.errorsValidation = new Map();
 					data.forEach(function(error){
 					$scope.errorsValidation.set(error.path, error.message);
 				});
 			} else {
-				delete $scope.usuario;
-				delete $scope.errorsValidation;
-				$scope.formUsuario.$setPristine();
+//				delete $scope.usuario; delete $scope.errorsValidation; $scope.formUsuario.$setPristine();
+				$scope.estaSaindoDaPagina = true;
 				$location.path("/listaUsuarios");
-				var notify = $.notify('Usuário alterado com sucesso! ', { type: 'success', delay: 5000} );
+				$.notify('Usuário alterado com sucesso! ', { type: 'success', delay: 4000} );
 			}
-			$scope.message = "Aconteceu um problema: ";
 		})
 		.error(
 				function(data, status) {
@@ -30,16 +29,16 @@ angular.module("listaUsuarios").controller("DetalheUsuarioCtrl", function($scope
 	};
 	
 	 $scope.$on('$locationChangeStart', function(event) {
-		 console.log("teste");
 		 console.log($scope.estaSaindoDaPagina);
 		 if(!$scope.estaSaindoDaPagina){
 			 if (isUsuarioEdicaoAlterado() || isUsuarioNovoAlterado()){
 				 event.preventDefault();
+				 $scope.proximaPagina = $location.path();
 				 $('#modal-perder-info').modal('show');
 			 }
 		 }else{
-			 console.log('saindo');
 			 delete $scope.estaSaindoDaPagina;
+			 delete $scope.proximaPagina;
 			 $('#modal-descartar-info').modal('hide');
 			 $(".modal-backdrop").remove();
 		 }
@@ -47,9 +46,15 @@ angular.module("listaUsuarios").controller("DetalheUsuarioCtrl", function($scope
 	
 	 $scope.descartarInformacoesCadastro = function() {
 		 $('#modal-descartar-info').modal('hide');
-		 $scope.estaSaindoDaPagina = true;
-		 $location.path('/listaUsuarios')
-		 return true;
+		 if($scope.proximaPagina != null){
+			 $scope.estaSaindoDaPagina = true;
+			 $location.path($scope.proximaPagina)
+		 }else{
+			delete $scope.usuario;
+			delete $scope.usuarioReferencia
+			delete $scope.errorsValidation;
+			$scope.formUsuario.$setPristine();
+		 }
 	 }
 	 
 	 isUsuarioEdicaoAlterado = function(){
@@ -57,7 +62,7 @@ angular.module("listaUsuarios").controller("DetalheUsuarioCtrl", function($scope
 	 }
 	 
 	 isUsuarioNovoAlterado = function(){
-		 return $scope.usuarioReferencia == null && isUsuarioDirty($scope.usuario); 
+		 return $scope.usuarioReferencia == null && isUsuarioDirty($scope.usuario);
 	 }
 
 	 isUsuarioDirty = function(usuario) {
@@ -68,4 +73,16 @@ angular.module("listaUsuarios").controller("DetalheUsuarioCtrl", function($scope
 		 	|| (usuario.senha != null && usuario.senha.trim() != null)
 			|| usuario.dataNascimento != null);
 	 }
+	 
+	 $scope.hasErrorFor = function(field) {
+		 return !angular.isUndefined($scope.formUsuario[field]) 
+		 			&& $scope.formUsuario[field].$error.required 
+		 			&& $scope.formUsuario[field].$dirty 
+		 			|| (!angular.isUndefined($scope.errorsValidation) && $scope.errorsValidation.has(field));
+	 }
+	 
+	 $scope.getErrorFor = function(field) {
+		 return !angular.isUndefined($scope.errorsValidation) && $scope.errorsValidation.has(field) ? $scope.errorsValidation.get(field) : ' não pode estar vazio';
+	 }
 });
+

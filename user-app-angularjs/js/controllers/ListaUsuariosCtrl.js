@@ -7,6 +7,7 @@ angular.module("listaUsuarios").controller("ListaUsuariosCtrl", function($scope,
 			console.log($scope.usuarioExcluir);
 			$scope.usuarios.splice($scope.usuarios.indexOf($scope.usuarioExcluir), 1);
 			delete $scope.cidadaoExcluir;
+			$.notify('Usuário excluído com sucesso! ', { type: 'success', delay: 5000} );
 		})
 		.error(
 			function(data, status) {

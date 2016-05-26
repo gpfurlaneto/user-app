@@ -26,3 +26,7 @@ input{
 #datetimepicker1{
 	margin-bottom: 5;
 }
+.hide{
+	display: none;
+	
+}

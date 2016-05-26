@@ -2,6 +2,8 @@
 <div class="panel panel-default base_center" >
 	<div class="panel-heading">Lista de usuários</div>
 	<div class="panel-body">
+		<input class="form-control" type="text" ng-model="criterioDeBusca" placeholder="Digite aqui para pesquisar"/>
+	
 		<table class="table">
 			<tr>
 				<th>Nome</th>
@@ -10,7 +12,7 @@
 				<th>Data Nascimento</th>
 				<th>Ações</th>
 			</tr>
-			<tr ng-repeat="usuario in usuarios">
+			<tr ng-repeat="usuario in usuarios | filter:criterioDeBusca">
 				<td>{{usuario.nome}}</td>
 				<td>{{usuario.email}}</td>
 				<td>{{usuario.login}}</td>
