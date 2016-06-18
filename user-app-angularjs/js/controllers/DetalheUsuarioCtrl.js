@@ -14,10 +14,10 @@ angular.module("listaUsuarios").controller("DetalheUsuarioCtrl", function($scope
 					$scope.errorsValidation.set(error.path, error.message);
 				});
 			} else {
-//				delete $scope.usuario; delete $scope.errorsValidation; $scope.formUsuario.$setPristine();
 				$scope.estaSaindoDaPagina = true;
 				$location.path("/listaUsuarios");
-				$.notify('Usuário alterado com sucesso! ', { type: 'success', delay: 4000} );
+				msg = "Usuário" + ($scope.usuarioReferencia == null ? " cadastrado " : " alterado ") + "com sucesso! "
+				$.notify(msg, { type: 'success', delay: 4000} );
 			}
 		})
 		.error(
@@ -29,7 +29,6 @@ angular.module("listaUsuarios").controller("DetalheUsuarioCtrl", function($scope
 	};
 	
 	 $scope.$on('$locationChangeStart', function(event) {
-		 console.log($scope.estaSaindoDaPagina);
 		 if(!$scope.estaSaindoDaPagina){
 			 if (isUsuarioEdicaoAlterado() || isUsuarioNovoAlterado()){
 				 event.preventDefault();

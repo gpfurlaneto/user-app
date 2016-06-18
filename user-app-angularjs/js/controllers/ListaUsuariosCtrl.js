@@ -4,7 +4,6 @@ angular.module("listaUsuarios").controller("ListaUsuariosCtrl", function($scope,
 	 
 	$scope.removerUsuario = function() {
 		usuariosAPI.removerUsuario($scope.usuarioExcluir.id).success(function(data) {
-			console.log($scope.usuarioExcluir);
 			$scope.usuarios.splice($scope.usuarios.indexOf($scope.usuarioExcluir), 1);
 			delete $scope.cidadaoExcluir;
 			$.notify('Usuário excluído com sucesso! ', { type: 'success', delay: 5000} );

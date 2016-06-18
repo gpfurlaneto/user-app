@@ -22,6 +22,11 @@ angular.module("listaUsuarios").config(function ($routeProvider) {
 		}
 	});
 	
+	$routeProvider.when("/login", {
+		templateUrl: "view/login.html",
+		controller: "LoginCtrl"
+	});
+	
 	$routeProvider.when("/", {
 		templateUrl: "view/home.html",
 	});

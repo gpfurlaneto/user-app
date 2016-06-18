@@ -1,0 +1,22 @@
+<div class="panel panel-default login">
+	<div class="panel-heading">Listagem de usuários - Login</div>
+	<div class="panel-body">
+		{{usuario}}
+		{{validationErrors}}
+		<form class="form-group" name="formLogin" id="formLogin" >
+			<field label="Login" size-class="fields_form-2" error="{{getErrorFor('nome', validationErrors)}}" 
+				show-error="{{hasErrorFor(formLogin, 'login', validationErrors)}}">
+				<input id="inputLogin" name="login" ng-required="true" type="text" class="form-control" 
+				ng-model="$parent.$parent.usuario.login">
+			</field>
+			<field label="Senha" size-class="fields_form-2" error="{{getErrorFor('senha', validationErrors)}}" 
+				show-error="{{hasErrorFor(formLogin, 'senha', validationErrors)}}">
+				<input id="inputSenha" name="senha" ng-required="true" type="password" class="form-control" 
+				ng-model="$parent.$parent.usuario.senha">
+			</field>
+			<button type="submit" class="btn btn-primary btn-block" ng-click="autenticar(usuario)">
+				Entrar
+			</button>
+		</form>
+	</div>
+</div>

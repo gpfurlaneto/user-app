@@ -1,32 +1,39 @@
-.base_center{
+.base_center {
 	margin: 0 auto;
 	max-width: 800px;
 }
 
-.center_login{
-	margin: 10% auto;
-}
-
-.width_100_percent{
+.width_100_percent {
 	width: 100%;
 }
 
-.fields_form-1{
+.fields_form-1 {
 	max-width: 300px;
 }
 
-.fields_form-2{
+.fields_form-2 {
 	max-width: 400px;
 }
 
-input{
+input {
 	margin-bottom: 5;
 }
 
-#datetimepicker1{
+#datetimepicker1 {
 	margin-bottom: 5;
 }
-.hide{
+
+.hide {
 	display: none;
-	
+}
+
+.login {
+	width : 350;
+	height: 300;
+	margin: auto;
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
 }
