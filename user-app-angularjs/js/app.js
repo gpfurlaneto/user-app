@@ -29,4 +29,7 @@ angular.module("listaUsuarios", ["ngRoute", "LocalStorageModule"])
 		 $rootScope.saveUserSession = function(userSession){
 			 localStorageService.set(config.userSession, userSession);
 		 }
+		 $rootScope.getUserSession = function(){
+			 return localStorageService.get(config.userSession);
+		 }
 	});

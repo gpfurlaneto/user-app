@@ -18,33 +18,35 @@
 				<td>{{usuario.login}}</td>
 				<td>{{usuario.dataNascimento | date:'dd/MM/yyyy'}}</td>
 				<td>
-					<a title="Editar" class="confirm-edit mini red-stripe" role="button" href="#/detalheUsuario" ng-click="selecionarUsuarioEditar(usuario)">
+					<a title="Resetar senha" role="button" href="" ng-click="resetarSenha(usuario)">
+						<span class="glyphicon glyphicon-lock" aria-hidden="true"/>
+					</a>
+					<a title="Editar" role="button" href="#/detalheUsuario" ng-click="selecionarUsuarioEditar(usuario)">
 						<span class="glyphicon glyphicon-edit" aria-hidden="true"/>
 					</a>
-					<a title="Deletar" class="confirm-remove mini red-stripe" role="button" role="button" data-toggle="modal" data-target="#modal-excluir-usuario"
+					<a title="Deletar" role="button" role="button" data-toggle="modal" data-target="#modal-excluir-usuario"
 					ng-click="selecionarUsuarioExcluir(usuario)">
 						<span class="glyphicon glyphicon-remove" aria-hidden="true"/>
 					</a>
-					
 				</td>
 			</tr>
 		</table>
 	</div>
 </div>
 <div class="modal fade" id="modal-excluir-usuario" tabindex="-1" role="dialog">
-	  <div class="modal-dialog" role="document">
-	    <div class="modal-content">
-	      <div class="modal-header">
-	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-	        <h4 class="modal-title">Atenção</h4>
-	      </div>
-	      <div class="modal-body">
-	        <p>Deseja realmente excluir o usuário?</p>        
-	      </div>
-	      <div class="modal-footer">
-	        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="removerUsuario()">Excluir</button>
-	        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-	      </div>
-	    </div><!-- /.modal-content -->
-	  </div><!-- /.modal-dialog -->
-	</div><!-- /.modal -->
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Atenção</h4>
+      </div>
+      <div class="modal-body">
+        <p>Deseja realmente excluir o usuário?</p>        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="removerUsuario()">Excluir</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>

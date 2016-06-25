@@ -22,5 +22,11 @@ angular.module("listaUsuarios").controller("ListaUsuariosCtrl", function($scope,
 		$scope.usuarioExcluir = usuarioExcluir;
 	};
 
+	$scope.resetarSenha = function(usuario){
+		usuariosAPI.resetarSenha(usuario.id).success(function(data) {
+			$.notify("Senha do usuário <b style='text-transform: uppercase;'>" + usuario.login + "</b> resetada para <b>" + data + "</b>",
+					{ type: 'success', delay: 5000} );
+		})
+	};
 						
 });

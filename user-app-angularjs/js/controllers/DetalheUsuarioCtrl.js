@@ -1,6 +1,9 @@
 angular.module("listaUsuarios").controller("DetalheUsuarioCtrl", function($scope, $location, usuariosAPI, usuario) {
 
 	$scope.usuario = usuario;
+	if (usuario !== null) {
+		usuario.senha = 'default';
+	}
 	$scope.usuarioReferencia = JSON.parse(JSON.stringify(usuario));
 	$scope.titulo = $scope.usuarioReferencia == null ? "Cadastrar" : "Editar";
 	$scope.tituloCancelar = $scope.usuarioReferencia == null ? "o cadastro?" : "a edição?";
