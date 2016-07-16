@@ -4,6 +4,9 @@ angular.module("listaUsuarios").config(function ($routeProvider) {
 		templateUrl: "view/listaUsuarios.html",
 		controller: "ListaUsuariosCtrl",
 		resolve: {
+			redirect: function ($rootScope) {
+                $rootScope.redirectIfNotLogged();
+            },
 			usuarios: function (usuariosAPI) {
 				return usuariosAPI.getUsuarios();
 			}
@@ -14,6 +17,9 @@ angular.module("listaUsuarios").config(function ($routeProvider) {
 		templateUrl: "view/detalheUsuario.html",
 		controller: "DetalheUsuarioCtrl",
 		resolve: {
+			redirect: function ($rootScope) {
+                $rootScope.redirectIfNotLogged();
+            },
 			usuario: function(){
 				usuario = JSON.parse(window.sessionStorage.getItem('usuarioEditar'));
 				window.sessionStorage.removeItem('usuarioEditar');
@@ -28,7 +34,12 @@ angular.module("listaUsuarios").config(function ($routeProvider) {
 	});
 	
 	$routeProvider.when("/", {
-		templateUrl: "view/home.html"
+		templateUrl: "view/home.html",
+		resolve : {
+			redirect: function ($rootScope) {
+				$rootScope.redirectIfNotLogged();
+			}
+		}
 	});
 	
 	$routeProvider.otherwise({redirectTo: "/"});
