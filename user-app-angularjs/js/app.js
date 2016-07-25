@@ -32,6 +32,9 @@ angular.module("listaUsuarios", ["ngRoute", "LocalStorageModule"])
 		 $rootScope.getUserSession = function(){
 			 return localStorageService.get(config.userSession);
 		 },
+		 $rootScope.getLoginUserSession = function(){
+			 return localStorageService.get(config.userSession).login;
+		 },
 		 $rootScope.redirectIfNotLogged = function(){
 			 if (!$rootScope.usuarioEstaLogado()) {
              	$.notify("Ops! Você não tem autorização para acessar esta funcionalidade.", { type: 'danger', delay: 4000} );

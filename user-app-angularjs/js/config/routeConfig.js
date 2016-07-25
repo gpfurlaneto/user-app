@@ -28,6 +28,16 @@ angular.module("listaUsuarios").config(function ($routeProvider) {
 		}
 	});
 	
+	$routeProvider.when("/alterarSenha", {
+		templateUrl: "view/alterarSenha.html",
+		controller: "AlterarSenhaCtrl",
+		resolve: {
+			redirect: function ($rootScope) {
+                $rootScope.redirectIfNotLogged();
+            }
+		}
+	});
+	
 	$routeProvider.when("/login", {
 		templateUrl: "view/login.html",
 		controller: "LoginCtrl"

@@ -6,7 +6,7 @@
 				Home 
 			</a>
 		</li>
-		<li class="dropdown  active">
+		<li class="dropdown">
 			<a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
 				<span class="glyphicon glyphicon-user"/>
 				Usuários 
@@ -15,9 +15,19 @@
 			<ul class="dropdown-menu">
 				<li><a href="#/listaUsuarios">Lista de usuários</a></li>
 				<li><a href="#/detalheUsuario">Novo usuário</a></li>
-			</ul></li>
+			</ul>
+		</li>
 	</ul>
 	<ul class="nav navbar-nav navbar-right" style="margin-right: 0px;">
-		<li><a href="" ng-click="sair()">Sair</a></li>
+		<li class="dropdown">
+			<a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+				<span class="glyphicon glyphicon-user"/>
+				{{getLoginUserSession()}}
+			</a>
+			<ul class="dropdown-menu">
+				<li><a href="#/alterarSenha">Alterar senha</a></li>
+				<li><a href="" ng-click="sair()">Sair</a></li>
+			</ul>
+		</li>
 	</ul>
 </nav>

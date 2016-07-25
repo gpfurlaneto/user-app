@@ -1,0 +1,26 @@
+<div style="text-align: center" ng-include="'view/menu.html'" />
+<div class="panel panel-default base_center">
+	<div class="panel-heading">Alterar senha</div>
+	<div class="panel-body">
+		<form class="form-group" name="formAlterarSenha" id="formAlterarSenha" style="top: -9px; left: 292px;">
+			<field label="Senha atual" size-class="fields_form-1" error="{{getErrorFor('senhaAtual', validationErrors)}}" 
+				show-error="{{hasErrorFor(formAlterarSenha, 'senhaAtual', validationErrors)}}">
+				<input maxlength="10" id="senhaAtual" name="senhaAtual" type="password" class="form-control" ng-model="$parent.$parent.alterarSenhaForm.senhaAtual"
+					aria-describedby="senhaAtual" ng-required="true">
+			</field>
+			<field label="Nova senha" size-class="fields_form-1" error="{{getErrorFor('novaSenha', validationErrors)}}" 
+				show-error="{{hasErrorFor(formAlterarSenha, 'novaSenha', validationErrors)}}">
+				<input maxlength="10" id="novaSenha" name="novaSenha" type="password" class="form-control" ng-model="$parent.$parent.alterarSenhaForm.novaSenha"
+					aria-describedby="novaSenha" ng-required="true">
+			</field>
+			<field label="Confirmar senha" size-class="fields_form-1" error="{{getErrorFor('confirmarSenha', validationErrors)}}" 
+				show-error="{{hasErrorFor(formAlterarSenha, 'confirmarSenha', validationErrors)}}">
+				<input maxlength="10" id="confirmarSenha" name="confirmarSenha" type="password" class="form-control" ng-model="$parent.$parent.alterarSenhaForm.confirmarSenha"
+					aria-describedby="confirmarSenha" ng-required="true">
+			</field>
+			<button type="submit" class="btn btn-primary" ng-click="alterarSenha(alterarSenhaForm)" ng-disabled="formAlterarSenha.$invalid">
+				Alterar senha
+			</button>
+		</form>
+	</div>
+</div>

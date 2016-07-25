@@ -44,7 +44,7 @@
 
 			<field label="Senha" size-class="fields_form-1"	show-error="{{hasErrorFor('senha')}}" error="{{getErrorFor('senha')}}">
 				<input maxlength="10" id="inputSenha" name="senha" type="password" class="form-control"	ng-model="$parent.$parent.usuario.senha"
-					aria-describedby="senha" ng-required="true" ng-disabled="{{usuario.id !== null}}">
+					aria-describedby="senha" ng-required="true" ng-disabled="{{usuario.id != null}}">
 			</field>
 			<button type="submit" class="btn btn-primary" ng-click="salvarUsuario(usuario)" ng-disabled="formUsuario.$invalid">
 				Salvar
