@@ -12,10 +12,7 @@ angular.module("listaUsuarios").controller("DetalheUsuarioCtrl", function($scope
 		usuariosAPI.salvarUsuario(usuario).success(function(data) {
 			
 			if (Array.isArray(data)) {
-				$scope.errorsValidation = new Map();
-					data.forEach(function(error){
-					$scope.errorsValidation.set(error.path, error.message);
-				});
+				$scope.validationErrors = $scope.getValidationErrors(data);
 			} else {
 				$scope.estaSaindoDaPagina = true;
 				$location.path("/listaUsuarios");
@@ -76,15 +73,6 @@ angular.module("listaUsuarios").controller("DetalheUsuarioCtrl", function($scope
 			|| usuario.dataNascimento != null);
 	 }
 	 
-	 $scope.hasErrorFor = function(field) {
-		 return !angular.isUndefined($scope.formUsuario[field]) 
-		 			&& $scope.formUsuario[field].$error.required 
-		 			&& $scope.formUsuario[field].$dirty 
-		 			|| (!angular.isUndefined($scope.errorsValidation) && $scope.errorsValidation.has(field));
-	 }
 	 
-	 $scope.getErrorFor = function(field) {
-		 return !angular.isUndefined($scope.errorsValidation) && $scope.errorsValidation.has(field) ? $scope.errorsValidation.get(field) : ' não pode estar vazio';
-	 }
 });
 

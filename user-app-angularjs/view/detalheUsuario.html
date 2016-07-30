@@ -4,23 +4,23 @@
 	<div class="panel-body">
 		<form class="form-group" name="formUsuario" id="formUsuario"
 			style="top: -9px; left: 292px;">
-			<field label="Nome completo" size-class="fields_form-2" show-error="{{hasErrorFor('nome')}}" error="{{getErrorFor('nome')}}">
+			<field label="Nome completo" size-class="fields_form-2" show-error="{{hasErrorFor(formUsuario, 'nome', validationErrors)}}" error="{{getErrorFor('nome', validationErrors)}}">
 				<input id="inputNome" name="nome" type="text" maxlength="150" class="form-control" ng-model="$parent.$parent.usuario.nome"
 					ng-required="true" aria-describedby="nome" maxlength="100">
 			</field>
 
-			<field label="Email" size-class="fields_form-2" show-error="{{hasErrorFor('email')}}" error="{{getErrorFor('email')}}">
+			<field label="Email" size-class="fields_form-2" show-error="{{hasErrorFor(formUsuario, 'email', validationErrors)}}" error="{{getErrorFor('email', validationErrors)}}">
 				<input maxlength="100" id="inputEmail" name="email" type="text" aria-describedby="email" ng-required="true"
 					class="form-control input-md" ng-model="$parent.$parent.usuario.email">
 			</field>
 
-			<field label="Login do usuário" size-class="fields_form-1" show-error="{{hasErrorFor('login')}}" error="{{getErrorFor('login')}}">
+			<field label="Login do usuário" size-class="fields_form-1" show-error="{{hasErrorFor(formUsuario, 'login', validationErrors)}}" error="{{getErrorFor('login', validationErrors)}}">
 				<input id="inputLogin" name="login" type="text" maxlength="20" aria-describedby="login" ng-required="true"
 					class="form-control input-md" ng-model="$parent.$parent.usuario.login">
 			</field>
 
-			<field label="Data de nascimento" size-class="fields_form-1" show-error="{{hasErrorFor('dataNascimento')}}" 
-				error="{{getErrorFor('dataNascimento')}}">
+			<field label="Data de nascimento" size-class="fields_form-1" show-error="{{hasErrorFor(formUsuario, 'dataNascimento', validationErrors)}}" 
+				error="{{getErrorFor('dataNascimento', validationErrors)}}">
 				<div id="datepicker" class="input-group date">
 					<input id="inputDtNascimento" name="dataNascimento"
 						aria-describedby="errorDataNascimentoRequerido" ng-required="true"
@@ -42,7 +42,7 @@
 				</div>
 			</field>
 
-			<field label="Senha" size-class="fields_form-1"	show-error="{{hasErrorFor('senha')}}" error="{{getErrorFor('senha')}}">
+			<field label="Senha" size-class="fields_form-1"	show-error="{{hasErrorFor(formUsuario, 'senha', validationErrors)}}" error="{{getErrorFor('senha', validationErrors)}}">
 				<input maxlength="10" id="inputSenha" name="senha" type="password" class="form-control"	ng-model="$parent.$parent.usuario.senha"
 					aria-describedby="senha" ng-required="true" ng-disabled="{{usuario.id != null}}">
 			</field>
