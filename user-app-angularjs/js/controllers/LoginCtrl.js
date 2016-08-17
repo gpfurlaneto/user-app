@@ -10,7 +10,6 @@ angular.module("listaUsuarios").controller("LoginCtrl", function($scope, loginAP
 			if (Array.isArray(data)) {
 				$scope.validationErrors = $scope.getValidationErrors(data);
 			} else {
-				console.log('naoeharray');
 				$scope.saveUserSession(data);
 				delete $scope.usuario;
 				$scope.formLogin.$setPristine();
