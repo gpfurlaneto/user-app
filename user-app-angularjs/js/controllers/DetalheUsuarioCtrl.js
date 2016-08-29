@@ -1,12 +1,16 @@
-angular.module("listaUsuarios").controller("DetalheUsuarioCtrl", function($scope, $location, usuariosAPI, usuario) {
+angular.module("listaUsuarios").controller("DetalheUsuarioCtrl", function($scope, $rootScope, $location, usuariosAPI, usuario) {
 
 	$scope.usuario = usuario;
 	if (usuario !== null) {
 		usuario.senha = 'default';
 	}
+
 	$scope.usuarioReferencia = JSON.parse(JSON.stringify(usuario));
 	$scope.titulo = $scope.usuarioReferencia == null ? "Cadastrar" : "Editar";
 	$scope.tituloCancelar = $scope.usuarioReferencia == null ? "o cadastro?" : "a edição?";
+	if ($rootScope.usuarioEstaLogado()) {
+		$scope.renderMenu = true;
+	}
 	
 	$scope.salvarUsuario = function(usuario) {
 		usuariosAPI.salvarUsuario(usuario).success(function(data) {

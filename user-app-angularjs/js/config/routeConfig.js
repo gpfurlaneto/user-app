@@ -17,9 +17,6 @@ angular.module("listaUsuarios").config(function ($routeProvider) {
 		templateUrl: "view/detalheUsuario.html",
 		controller: "DetalheUsuarioCtrl",
 		resolve: {
-			redirect: function ($rootScope) {
-                $rootScope.redirectIfNotLogged();
-            },
 			usuario: function(){
 				usuario = JSON.parse(window.sessionStorage.getItem('usuarioEditar'));
 				window.sessionStorage.removeItem('usuarioEditar');
