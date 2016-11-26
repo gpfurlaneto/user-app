@@ -9,10 +9,7 @@ angular.module("listaUsuarios").controller("AlterarSenhaCtrl", function($scope, 
 		alterarSenhaAPI.alterarSenha(alterarSenhaForm).success(function(data) {
 			
 			if (Array.isArray(data)) {
-				$scope.errorsValidation = new Map();
-					data.forEach(function(error){
-					$scope.errorsValidation.set(error.path, error.message);
-				});
+				$scope.validationErrors = $scope.getValidationErrors(data);
 			} else {
 				$scope.estaSaindoDaPagina = true;
 				$location.path("/");
@@ -22,8 +19,9 @@ angular.module("listaUsuarios").controller("AlterarSenhaCtrl", function($scope, 
 		})
 		.error(
 				function(data, status) {
-					$scope.message = "Aconteceu um problema: "
-							+ data;
+					console.log(data);
+					$scope.message = "Aconteceu um problema: " + data;
+					$.notify($scope.message, { type: 'danger', delay: 4000} );
 		});
 
 	};

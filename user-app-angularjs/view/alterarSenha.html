@@ -2,6 +2,8 @@
 <div class="panel panel-default base_center">
 	<div class="panel-heading">Alterar senha</div>
 	<div class="panel-body">
+		{{hasErrorFor(formAlterarSenha, 'senhaAtual', validationErrors)}}
+		{{getErrorFor('senhaAtual', validationErrors)}}
 		<form class="form-group" name="formAlterarSenha" id="formAlterarSenha" style="top: -9px; left: 292px;">
 			<field label="Senha atual" size-class="fields_form-1" error="{{getErrorFor('senhaAtual', validationErrors)}}" 
 				show-error="{{hasErrorFor(formAlterarSenha, 'senhaAtual', validationErrors)}}">

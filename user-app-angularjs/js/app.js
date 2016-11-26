@@ -33,7 +33,11 @@ angular.module("listaUsuarios", ["ngRoute", "LocalStorageModule"])
 			 return localStorageService.get(config.userSession);
 		 },
 		 $rootScope.getLoginUserSession = function(){
-			 return localStorageService.get(config.userSession).login;
+			 if ($rootScope.usuarioEstaLogado()) {
+				 return localStorageService.get(config.userSession).login;
+			}else{
+				return null;
+			}
 		 },
 		 $rootScope.redirectIfNotLogged = function(){
 			 if (!$rootScope.usuarioEstaLogado()) {

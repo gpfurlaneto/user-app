@@ -1,4 +1,4 @@
-angular.module("listaUsuarios").controller("DetalheUsuarioCtrl", function($scope, $rootScope, $location, usuariosAPI, usuario) {
+angular.module("listaUsuarios").controller("DetalheUsuarioCtrl", function($scope, $rootScope, $location, usuariosAPI, autocadastroAPI, usuario) {
 
 	$scope.usuario = usuario;
 	if (usuario !== null) {
@@ -8,11 +8,19 @@ angular.module("listaUsuarios").controller("DetalheUsuarioCtrl", function($scope
 	$scope.usuarioReferencia = JSON.parse(JSON.stringify(usuario));
 	$scope.titulo = $scope.usuarioReferencia == null ? "Cadastrar" : "Editar";
 	$scope.tituloCancelar = $scope.usuarioReferencia == null ? "o cadastro?" : "a edição?";
-	if ($rootScope.usuarioEstaLogado()) {
-		$scope.renderMenu = true;
+	if (!$rootScope.usuarioEstaLogado()) {
+		$scope.autoCadastro = true;
 	}
 	
 	$scope.salvarUsuario = function(usuario) {
+		if ($scope.autoCadastro) {
+			$scope.salvarAutocadastroAPI(usuario);
+		}else{
+			$scope.salvarUsuarioAPI(usuario);
+		}
+	}
+	
+	$scope.salvarUsuarioAPI = function(usuario){
 		usuariosAPI.salvarUsuario(usuario).success(function(data) {
 			
 			if (Array.isArray(data)) {
@@ -24,12 +32,34 @@ angular.module("listaUsuarios").controller("DetalheUsuarioCtrl", function($scope
 				$.notify(msg, { type: 'success', delay: 4000} );
 			}
 		})
-		.error(
-				function(data, status) {
-					$scope.message = "Aconteceu um problema: "
-							+ data;
+		.error(function(data, status) {
+			$scope.message = "Aconteceu um problema: " + data;
+			$.notify($scope.message, { type: 'danger', delay: 4000} );
 		});
 
+	};
+	
+	$scope.salvarAutocadastroAPI = function(usuario){
+		autocadastroAPI.salvarUsuario(usuario).success(function(data) {
+			
+			if (Array.isArray(data)) {
+				$scope.validationErrors = $scope.getValidationErrors(data);
+			} else {
+				$scope.estaSaindoDaPagina = true;
+				$location.path("/login");
+				msg = "Usuário cadastrado com sucesso!"
+				$.notify(msg, { type: 'success', delay: 4000} );
+			}
+		})
+		.error(function(data, status) {
+			if(data instanceof Object && data.message != undefined){
+				$scope.message = data.message;
+			}else{
+				$scope.message = "Aconteceu um problema: " + data;
+			}
+			$.notify($scope.message, { type: 'danger', delay: 4000} );
+		});
+	
 	};
 	
 	 $scope.$on('$locationChangeStart', function(event) {
